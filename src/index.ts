@@ -4,6 +4,8 @@ import connectToDB from "./db";
 const routes = require("./routes");
 // @ts-ignore
 import morgan from "morgan";
+// @ts-ignore
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
@@ -18,6 +20,10 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use(express.json());
+
+
+// Autoriser toutes les origines et méthodes 
+app.use(cors());
 
 // routes avec le prefix '/api'
 app.use("/api", routes);

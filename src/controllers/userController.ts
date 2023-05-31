@@ -26,6 +26,7 @@ export const signup = async (req: Request, res: Response) => {
     await newUser.save();
     res.json({ message: 'Utilisateur créer avec success' });
   } catch (error) {
+    console.log("error",error)
     res.status(500).json({ message: "Erreur lors de l'enregistrement" });
   }
 };
