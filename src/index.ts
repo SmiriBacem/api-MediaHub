@@ -1,14 +1,20 @@
 // @ts-ignore
-import express, { Request, Response } from 'express';
-import connectToDB from './db';
+import express, { Request, Response, NextFunction } from "express";
+import connectToDB from "./db";
 const routes = require("./routes");
-
+// @ts-ignore
+import morgan from "morgan";
 
 const app = express();
 const port = 3000;
 
-app.get('/movies', (req: Request, res: Response) => {
-  res.send('List of movies');
+// Log chaque requete
+app.use(morgan("dev"));
+
+// Maintenir les erreurs des middleware
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.error(err);
+  res.status(500).json({ error: "Erreur interne du serveur" });
 });
 
 app.use(express.json());
@@ -20,5 +26,5 @@ app.use("/api", routes);
 connectToDB();
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Port de l'application : ${port} - ${new Date().toLocaleString()} LOG [Start] Starting application... `);
 });
