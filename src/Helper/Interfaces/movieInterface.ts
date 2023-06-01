@@ -1,5 +1,5 @@
 export interface IMovie {
-  id: number;
+  id: string;
   Title: string;
   "US Gross"?: number;
   "US DVD Sales"?: number;

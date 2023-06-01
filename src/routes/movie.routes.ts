@@ -12,10 +12,10 @@ router.get('/movieSorted',authorizeUser, limiter, getMoviesTriByField);
 router.get('/searchAndSortMovies',authorizeUser, limiter, searchAndSortMovies);
 
 // Router pour chercher un utilisateur par ID
-router.get('/:movieId',authorizeUser, limiter, getMovieDetails);
+router.get('/:movieId/:userId',authorizeUser, limiter, getMovieDetails);
 
 // Route pour récupérer les films existant
-router.get('/',authorizeUser, limiter, getMoviesList);
+router.get('/',authorizeUser, getMoviesList);
 
 
 

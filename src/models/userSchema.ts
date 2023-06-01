@@ -8,6 +8,7 @@ const userSchema: Schema = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    movieHistory: [{ type: Schema.Types.ObjectId, ref: 'Movie' }],
   },
   { timestamps: true }
 );

@@ -6,6 +6,7 @@ import { IUser }  from '../Helper/Interfaces/userInerface';
 import bcrypt from 'bcrypt';
 // @ts-ignore
 import jwt from 'jsonwebtoken';
+import Movie from "../models/movieSchema";
 
 // Création d'un nouveau utilisateur
 export const signup = async (req: Request, res: Response) => {
@@ -65,5 +66,21 @@ export const getUserById = async (req: Request, res: Response) => {
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: 'Impossible de trouver ce utilisateur' });
+  }
+};
+
+export const getUserMovieVisited = async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'Utilisateur introuvable' });
+    }
+
+    const visitedFilms = await Movie.find({ _id: { $in: user.movieHistory } });
+    res.json(visitedFilms);
+  } catch (error) {
+    res.status(500).json({ message: 'Erreur lors de la récupération des films visités par l\'utilisateur', error });
   }
 };
