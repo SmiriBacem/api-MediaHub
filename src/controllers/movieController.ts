@@ -6,7 +6,7 @@ export const getMovieDetails = async (req: Request, res: Response) => {
   const { movieId } = req.params;
 
   try {
-    const movie = await Movie.findById(movieId);
+    const movie = await Movie.findById(movieId).select('-id -_id');;
     if (!movie) {
       return res.status(404).json({ message: "Film introuvable" });
     }
