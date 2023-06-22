@@ -23,8 +23,11 @@ export const getMovieDetails = async (req: Request, res: Response) => {
           return res.json(movie);
         }
         // si n'existe pas on l'ajoute
-        user.movieHistory.push(movieId as any);
-        await user.save();
+          await User.findOneAndUpdate(
+          { _id: userId },
+          { $push: { movieHistory: movieId } },
+          { new: true }
+        );
       }
       res.json(movie);
     } catch (error) {
